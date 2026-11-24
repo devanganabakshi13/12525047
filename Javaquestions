@@ -1,0 +1,441 @@
+//.  1. Two Sum
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> seen = new HashMap<>();
+        
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (seen.containsKey(complement)) {
+                return new int[]{seen.get(complement), i};
+            }
+            seen.put(nums[i], i);
+        }
+        
+        return new int[]{};
+    }
+}
+//1480. Running Sum of 1d Array
+class Solution {
+    public int[] runningSum(int[] nums) {
+        int[] result = new int[nums.length];
+
+        result[0] = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            result[i] = result[i - 1] + nums[i];
+        }
+
+        return result;
+    }
+}
+
+//1672, Richest Customer Wealth
+class Solution {
+    public int maximumWealth(int[][] accounts) {
+        int maxWealth = 0;
+        for (int i = 0; i < accounts.length; i++) {
+            int sum = 0;
+
+            for (int j = 0; j < accounts[i].length; j++) {
+                sum += accounts[i][j];
+            }
+            maxWealth = Math.max(maxWealth, sum);
+        }
+    return maxWealth;
+    }
+}
+//217. Contains Duplicate
+import java.util.HashSet;
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            if (set.contains(num)) {
+                return true;
+            }
+            set.add(num);
+        }
+
+        return false;
+    }
+}
+//344 reverse string
+class Solution {
+    public void reverseString(char[] s) {
+        int left = 0;
+        int right = s.length - 1;
+         while (left < right) {
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+}
+//125. Valid Palindrome
+
+class Solution {
+    public boolean isPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+
+        while (left < right) {
+
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+                left++;
+            }
+
+            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
+                right--;
+            }
+
+            if (Character.toLowerCase(s.charAt(left)) !=
+                Character.toLowerCase(s.charAt(right))) {
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+}
+
+//709. To Lower Case
+class Solution {
+    public void reverseString(char[] s) {
+        int left = 0;
+        int right = s.length - 1;
+         while (left < right) {
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+}
+//
+
+
+
+//1603. Design Parking System
+    class ParkingSystem {
+    private int[] slots;
+
+    public ParkingSystem(int big, int medium, int small) {
+        slots = new int[]{big, medium, small};
+    }
+    
+    public boolean addCar(int carType) {
+        if (slots[carType - 1] > 0) {
+            slots[carType - 1]--;
+            return true;
+        }
+        return false;
+    }
+}
+
+
+//933. Number of Recent Calls
+class RecentCounter {
+    private Deque<Integer> q;
+
+    public RecentCounter() {
+        q = new ArrayDeque<>();
+    }
+    
+    public int ping(int t) {
+        q.offer(t);
+        while (q.peek() < t - 3000) {
+            q.poll();
+        }
+        return q.size();
+    }
+}
+
+//1470. Shuffle the Array
+class Solution {
+    public int[] shuffle(int[] nums, int n) {
+        int[] result = new int[2 * n];
+        
+        for (int i = 0; i < n; i++) {
+            result[2 * i] = nums[i];
+            result[2 * i + 1] = nums[i + n];
+        }
+        
+        return result;
+    }
+}
+
+//121. Best Time to Buy and Sell Stock
+class Solution {
+    public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+
+        for (int price : prices) {
+            if (price < minPrice) {
+                minPrice = price;
+            } else if (price - minPrice > maxProfit) {
+                maxProfit = price - minPrice;
+            }
+        }
+
+        return maxProfit;
+    }
+}
+
+//14. Longest Common Prefix
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+        
+        String prefix = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            while (strs[i].indexOf(prefix) != 0) {
+                prefix = prefix.substring(0, prefix.length() - 1);
+                if (prefix.isEmpty()) {
+                    return "";
+                }
+            }
+        }
+        return prefix;
+    }
+}
+
+//28. Find the Index of the First Occurrence in a String
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int n = haystack.length();
+        int m = needle.length();
+
+        if (m == 0) {
+            return 0;
+        }
+        if (m > n) {
+            return -1;
+        }
+
+        for (int i = 0; i <= n - m; i++) {
+            int j = 0;
+            while (j < m && haystack.charAt(i + j) == needle.charAt(j)) {
+                j++;
+            }
+            if (j == m) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+}
+
+//303. Range Sum Query - Immutable
+class NumArray {
+    private int[] prefix;
+
+    public NumArray(int[] nums) {
+        prefix = new int[nums.length + 1];
+        for (int i = 0; i < nums.length; i++) {
+            prefix[i + 1] = prefix[i] + nums[i];
+        }
+    }
+
+    public int sumRange(int left, int right) {
+        return prefix[right + 1] - prefix[left];
+    }
+}
+
+
+//155. Min Stack
+class MinStack {
+
+    public MinStack() {
+        
+    }
+    
+    public void push(int value) {
+        
+    }
+    
+    public void pop() {
+        
+    }
+    
+    public int top() {
+        
+    }
+    
+    public int getMin() {
+        
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(value);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
+//707. Design Linked List
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class MyLinkedList:
+    def __init__(self):
+        self.head = ListNode()
+        self.size = 0
+
+    def get(self, index: int) -> int:
+        if index < 0 or index >= self.size:
+            return -1
+        curr = self.head.next
+        for _ in range(index):
+            curr = curr.next
+        return curr.val
+
+    def addAtHead(self, val: int) -> None:
+        self.addAtIndex(0, val)
+
+    def addAtTail(self, val: int) -> None:
+        self.addAtIndex(self.size, val)
+
+    def addAtIndex(self, index: int, val: int) -> None:
+        if index < 0 or index > self.size:
+            return
+        prev = self.head
+        for _ in range(index):
+            prev = prev.next
+        prev.next = ListNode(val, prev.next)
+        self.size += 1
+
+    def deleteAtIndex(self, index: int) -> None:
+        if index < 0 or index >= self.size:
+            return
+        prev = self.head
+        for _ in range(index):
+            prev = prev.next
+        prev.next = prev.next.next
+        self.size -= 1
+//design linked list
+class MyLinkedList {
+
+    class Node {
+        int val;
+        Node next;
+
+        Node(int val) {
+            this.val = val;
+        }
+    }
+
+    Node head;
+    int size;
+
+    public MyLinkedList() {
+        head = null;
+        size = 0;
+    }
+
+    public int get(int index) {
+        if (index < 0 || index >= size) {
+            return -1;
+        }
+
+        Node temp = head;
+
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+
+        return temp.val;
+    }
+
+    public void addAtHead(int val) {
+        Node newNode = new Node(val);
+        newNode.next = head;
+        head = newNode;
+        size++;
+    }
+
+    public void addAtTail(int val) {
+        Node newNode = new Node(val);
+
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+
+            temp.next = newNode;
+        }
+
+        size++;
+    }
+
+    public void addAtIndex(int index, int val) {
+        if (index < 0 || index > size) {
+            return;
+        }
+
+        if (index == 0) {
+            addAtHead(val);
+            return;
+        }
+
+        if (index == size) {
+            addAtTail(val);
+            return;
+        }
+
+        Node newNode = new Node(val);
+        Node temp = head;
+
+        for (int i = 0; i < index - 1; i++) {
+            temp = temp.next;
+        }
+
+        newNode.next = temp.next;
+        temp.next = newNode;
+        size++;
+    }
+
+    public void deleteAtIndex(int index) {
+        if (index < 0 || index >= size) {
+            return;
+        }
+
+        if (index == 0) {
+            head = head.next;
+        } else {
+            Node temp = head;
+
+            for (int i = 0; i < index - 1; i++) {
+                temp = temp.next;
+            }
+
+            temp.next = temp.next.next;
+        }
+
+        size--;
+    }
+}
